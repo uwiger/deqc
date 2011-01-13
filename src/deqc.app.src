@@ -1,0 +1,14 @@
+%%% -*- mode: erlang -*-
+%%% $Id$
+%%%
+
+{application, deqc,
+ [
+  {description, "Distributed EQC testing"},
+  {vsn, "0.01"},
+  {id, "deqc"},
+  {registered, [ ] },
+  {applications, [ kernel, stdlib, gproc ] },
+  {env, []}
+ ]
+}.
