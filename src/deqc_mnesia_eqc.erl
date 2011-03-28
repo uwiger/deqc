@@ -1,5 +1,7 @@
 -module(deqc_mnesia_eqc).
 -compile(export_all).
+
+-ifdef(EQC).
 -include_lib("eqc/include/eqc.hrl").
 -include_lib("eqc/include/eqc_statem.hrl").
 
@@ -27,3 +29,5 @@ start_nodes(Ns) ->
 create_schema(FromNode, Nodes) ->
     RealNodes = [N || {_, N} <- Nodes],
     deqc_proxy:rpc(FromNode, mnesia, create_schema, [RealNodes]).
+
+-endif.
