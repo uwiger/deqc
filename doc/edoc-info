@@ -1,0 +1,3 @@
+{application,deqc}.
+{packages,[]}.
+{modules,[deqc_mnesia_eqc,deqc_proxy]}.

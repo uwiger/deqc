@@ -54,7 +54,7 @@ rpc(Node, M, F, A) ->
     call(Node, {rpc, M, F, A}).
 
 list() ->
-    [N || {{n,l,{?MODULE,N}},_,_} <-
+    [{N,V} || {{n,l,{?MODULE,N}},_,V} <-
 	      gproc:select(n, [{ {{n,l,{?MODULE,'_'}},'_','_'}, [], ['$_']}])].
 
 
@@ -114,7 +114,13 @@ init({Node, Options}) ->
     try
 	gproc:add_local_name({?MODULE, Node}),
 	State0 = check_options(Node, Options),
-	do_start_node(State0)
+	case do_start_node(State0) of
+	    {ok, #st{node = NodeName} = State1} ->
+		gproc:set_value({n,l,{?MODULE, Node}}, NodeName),
+		{ok, State1};
+	    Other ->
+		Other
+	end
     catch
 	error:E ->
 	    {error, E}
